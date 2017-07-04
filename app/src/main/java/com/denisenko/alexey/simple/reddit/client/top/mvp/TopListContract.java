@@ -1,9 +1,8 @@
 package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
-import android.os.Bundle;
-
 import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
-import com.denisenko.alexey.simple.reddit.client.pojo.RedditChildren;
+import com.denisenko.alexey.simple.reddit.client.pojo.Child;
+import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
 
 import java.util.List;
 
@@ -13,9 +12,9 @@ public interface TopListContract {
 
     interface View {
 
-        void setRefreshing();
+        void setRefreshing(boolean isLoading);
 
-        void addItems();
+        void addItems(List<TopEntry> items);
 
         void showError();
 
@@ -24,17 +23,13 @@ public interface TopListContract {
 
     interface Presenter extends BaseContract.Presenter {
 
-        void onLoadNextPage();
+        void loadMore();
 
-        void onRefresh();
-
-        void onCreate(Bundle savedInstanceState);
-
-        void onSaveInstanceState(Bundle outState);
+        void refreshList();
     }
 
     interface Model {
 
-        Observable<List<RedditChildren>> getTopEntriesList(int limit, String after);
+        Observable<List<Child>> getTopEntriesList(int limit, String after);
     }
 }
