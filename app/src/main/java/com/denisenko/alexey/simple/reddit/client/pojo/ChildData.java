@@ -2,28 +2,25 @@ package com.denisenko.alexey.simple.reddit.client.pojo;
 
 import com.squareup.moshi.Json;
 
-public class RedditChildrenData {
+public class ChildData {
 
     @Json(name = "title")
-    String title;
+    private String title;
 
     @Json(name = "author")
-    String author;
+    private String author;
 
     @Json(name = "created_utc")
-    long createdAt;
+    private long createdUtc;
 
     @Json(name = "thumbnail")
-    String thumbnailUrl;
+    private String thumbnail;
 
     @Json(name = "num_comments")
-    int numberOfComments;
+    private int numComments;
 
     @Json(name = "url")
-    String url;
-
-    public RedditChildrenData() {
-    }
+    private String url;
 
     public String getTitle() {
         return title;
@@ -33,16 +30,16 @@ public class RedditChildrenData {
         return author;
     }
 
-    public long getCreatedAt() {
-        return createdAt;
+    public long getCreatedUtc() {
+        return createdUtc;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public int getNumberOfComments() {
-        return numberOfComments;
+    public int getNumComments() {
+        return numComments;
     }
 
     public String getUrl() {

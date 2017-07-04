@@ -2,22 +2,19 @@ package com.denisenko.alexey.simple.reddit.client.pojo;
 
 import com.squareup.moshi.Json;
 
-public class RedditResponse {
+public class Child {
 
     @Json(name = "kind")
-    String kind;
+    private String kind;
 
     @Json(name = "data")
-    RedditListingData data;
-
-    public RedditResponse() {
-    }
+    private ChildData data;
 
     public String getKind() {
         return kind;
     }
 
-    public RedditListingData getData() {
+    public ChildData getData() {
         return data;
     }
 }
