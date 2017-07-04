@@ -1,9 +1,9 @@
-package com.denisenko.alexey.simple.reddit.client.presenter;
+package com.denisenko.alexey.simple.reddit.client.common;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BasePresenter implements Presenter {
+public class BasePresenter implements BaseContract.Presenter {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
