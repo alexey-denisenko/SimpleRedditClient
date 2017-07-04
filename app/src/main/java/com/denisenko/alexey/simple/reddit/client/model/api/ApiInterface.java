@@ -1,13 +1,13 @@
 package com.denisenko.alexey.simple.reddit.client.model.api;
 
-import com.denisenko.alexey.simple.reddit.client.model.RedditResponse;
+import com.denisenko.alexey.simple.reddit.client.model.pojo.RedditResponse;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
 
     @GET("/top.json")
-    Call<RedditResponse> getTopEntries(@Query("limit") int limit, @Query("after") String after);
+    Observable<RedditResponse> getTopEntries(@Query("limit") int limit, @Query("after") String after);
 }
