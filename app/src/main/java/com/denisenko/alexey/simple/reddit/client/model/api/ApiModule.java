@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public final class ApiModule {
 
-    public static final boolean ENABLE_LOG = true;
+    private static final boolean ENABLE_LOG = true;
 
     public ApiModule() {
     }

@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.model;
+package com.denisenko.alexey.simple.reddit.client.model.pojo;
 
 import com.squareup.moshi.Json;
 
