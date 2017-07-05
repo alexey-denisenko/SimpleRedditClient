@@ -2,13 +2,15 @@ package com.denisenko.alexey.simple.reddit.client.pojo;
 
 import com.squareup.moshi.Json;
 
+import java.util.List;
+
 public class Data {
 
     @Json(name = "modhash")
     private String modhash;
 
     @Json(name = "child")
-    private Child child;
+    private List<Child> child;
 
     @Json(name = "after")
     private String after;
@@ -20,7 +22,7 @@ public class Data {
         return modhash;
     }
 
-    public Child getChild() {
+    public List<Child> getChildrens() {
         return child;
     }
 

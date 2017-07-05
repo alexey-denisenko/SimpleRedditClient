@@ -3,6 +3,7 @@ package com.denisenko.alexey.simple.reddit.client.top.di;
 import com.denisenko.alexey.simple.reddit.client.Const;
 import com.denisenko.alexey.simple.reddit.client.top.api.ApiInterface;
 import com.denisenko.alexey.simple.reddit.client.top.api.ApiModule;
+import com.denisenko.alexey.simple.reddit.client.top.mappers.RedditToChildList;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -20,6 +21,11 @@ public class ModelModule {
     @Singleton
     ApiInterface provideApiInterface() {
         return ApiModule.getApiInterface(Const.BASE_URl);
+    }
+
+    @Provides
+    RedditToChildList providesRedditToChildListMapper() {
+        return new RedditToChildList();
     }
 
     @Provides
