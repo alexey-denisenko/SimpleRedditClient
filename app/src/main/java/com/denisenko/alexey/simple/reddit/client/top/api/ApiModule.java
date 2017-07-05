@@ -10,9 +10,6 @@ public final class ApiModule {
 
     private static final boolean ENABLE_LOG = true;
 
-    public ApiModule() {
-    }
-
     public static ApiInterface getApiInterface(String url) {
         OkHttpClient httpClient = new OkHttpClient();
 
