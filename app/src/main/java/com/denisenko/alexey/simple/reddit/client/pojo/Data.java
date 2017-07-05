@@ -9,7 +9,7 @@ public class Data {
     @SerializedName("modhash")
     private String modhash;
 
-    @SerializedName("child")
+    @SerializedName("children")
     private List<Child> child;
 
     @SerializedName("after")

@@ -8,13 +8,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.R;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top.di.DaggerViewComponent;
+import com.denisenko.alexey.simple.reddit.client.top.di.ViewComponent;
+import com.denisenko.alexey.simple.reddit.client.top.di.ViewModule;
 import com.denisenko.alexey.simple.reddit.client.top.ui.TopListAdapter;
 import com.denisenko.alexey.simple.reddit.client.top.ui.TopListViewHolder;
 
@@ -28,6 +31,8 @@ import butterknife.ButterKnife;
 
 public class TopListFragment extends Fragment implements TopListContract.View, TopListViewHolder.OnEntryClickListener {
 
+    private static final String TAG = "TopListFragment";
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -37,6 +42,10 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
     @Inject
     TopListContract.Presenter presenter;
 
+    private TopListAdapter adapter;
+
+    private ViewComponent viewComponent;
+
     public TopListFragment() {
         // Required empty public constructor
     }
@@ -44,7 +53,12 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getComponent().inject(this);
+        if (viewComponent == null) {
+            viewComponent = DaggerViewComponent.builder()
+                    .viewModule(new ViewModule(this))
+                    .build();
+        }
+        viewComponent.inject(this);
     }
 
     @Override
@@ -53,13 +67,20 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
 
         View view = inflater.inflate(R.layout.fragment_top_list, container, false);
         ButterKnife.bind(this, view);
-        presenter.loanInitial();
+        initRecyclerView();
+        presenter.loadInitial();
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
     private void initRecyclerView() {
+        adapter = new TopListAdapter(new ArrayList<>(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new TopListAdapter(new ArrayList<>(), this));
+        recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 
@@ -70,7 +91,8 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
 
     @Override
     public void addItems(List<TopEntry> items) {
-
+        adapter.addItems(items);
+        Log.d(TAG, "addItems: ");
     }
 
     @Override

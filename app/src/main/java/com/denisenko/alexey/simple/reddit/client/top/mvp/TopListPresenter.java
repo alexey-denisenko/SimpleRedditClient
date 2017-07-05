@@ -26,11 +26,14 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
     }
 
     @Override
-    public void loanInitial() {
+    public void loadInitial() {
         Disposable disposable = model.getTopEntriesList(10, "")
                 .map(topListMapper)
                 .subscribe(topEntries -> view.addItems(topEntries),
-                        throwable -> view.showError());
+                        throwable -> {
+                            throwable.printStackTrace();
+                            view.showError();
+                        });
 
 
         addSubscription(disposable);

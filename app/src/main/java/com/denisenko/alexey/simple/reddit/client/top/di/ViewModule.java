@@ -16,7 +16,7 @@ public class ViewModule {
     }
 
     @Provides
-    TopListPresenter provideTopListPresenter() {
+    TopListContract.Presenter provideTopListPresenter() {
         return new TopListPresenter(view);
     }
 }

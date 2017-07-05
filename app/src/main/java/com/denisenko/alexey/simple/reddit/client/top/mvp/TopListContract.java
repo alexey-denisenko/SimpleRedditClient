@@ -23,7 +23,7 @@ public interface TopListContract {
 
     interface Presenter extends BaseContract.Presenter {
 
-        void loanInitial();
+        void loadInitial();
 
         void refreshList();
     }

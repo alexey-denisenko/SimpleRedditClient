@@ -58,7 +58,7 @@ public class TopListViewHolder extends RecyclerView.ViewHolder {
 
                     @Override
                     public void onError() {
-
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
 
