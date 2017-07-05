@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SimpleRedditClient</string>
+    <string name="top_list_submitted">submitted</string>
+    <string name="top_list_by">by</string>
 </resources>

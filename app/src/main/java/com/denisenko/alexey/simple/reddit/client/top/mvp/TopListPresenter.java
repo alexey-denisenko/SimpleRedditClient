@@ -19,12 +19,9 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
 
     private TopListContract.View view;
 
-    public TopListPresenter() {
+    public TopListPresenter(TopListContract.View view) {
         super();
         App.getComponent().inject(this);
-    }
-
-    public TopListPresenter(TopListContract.View view) {
         this.view = view;
     }
 
