@@ -9,7 +9,18 @@ public class TopEntry {
     private String thumbnailUrl;
     private String url;
 
-    public TopEntry() {
+    public TopEntry(int numberOfComments,
+                    long createdAt,
+                    String title,
+                    String author,
+                    String thumbnailUrl,
+                    String url) {
+        this.numberOfComments = numberOfComments;
+        this.createdAt = createdAt;
+        this.title = title;
+        this.author = author;
+        this.thumbnailUrl = thumbnailUrl;
+        this.url = url;
     }
 
     public int getNumberOfComments() {
