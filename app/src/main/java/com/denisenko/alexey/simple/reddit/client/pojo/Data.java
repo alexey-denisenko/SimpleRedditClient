@@ -1,21 +1,21 @@
 package com.denisenko.alexey.simple.reddit.client.pojo;
 
-import com.squareup.moshi.Json;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Data {
 
-    @Json(name = "modhash")
+    @SerializedName("modhash")
     private String modhash;
 
-    @Json(name = "child")
+    @SerializedName("child")
     private List<Child> child;
 
-    @Json(name = "after")
+    @SerializedName("after")
     private String after;
 
-    @Json(name = "before")
+    @SerializedName("before")
     private String before;
 
     public String getModhash() {

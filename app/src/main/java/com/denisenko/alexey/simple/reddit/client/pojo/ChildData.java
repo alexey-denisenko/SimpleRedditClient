@@ -1,25 +1,25 @@
 package com.denisenko.alexey.simple.reddit.client.pojo;
 
-import com.squareup.moshi.Json;
+import com.google.gson.annotations.SerializedName;
 
 public class ChildData {
 
-    @Json(name = "title")
+    @SerializedName("title")
     private String title;
 
-    @Json(name = "author")
+    @SerializedName("author")
     private String author;
 
-    @Json(name = "created_utc")
+    @SerializedName("created_utc")
     private long createdUtc;
 
-    @Json(name = "thumbnail")
+    @SerializedName("thumbnail")
     private String thumbnail;
 
-    @Json(name = "num_comments")
+    @SerializedName("num_comments")
     private int numComments;
 
-    @Json(name = "url")
+    @SerializedName("url")
     private String url;
 
     public String getTitle() {

@@ -1,13 +1,13 @@
 package com.denisenko.alexey.simple.reddit.client.pojo;
 
-import com.squareup.moshi.Json;
+import com.google.gson.annotations.SerializedName;
 
 public class Child {
 
-    @Json(name = "kind")
+    @SerializedName("kind")
     private String kind;
 
-    @Json(name = "data")
+    @SerializedName("data")
     private ChildData data;
 
     public String getKind() {
