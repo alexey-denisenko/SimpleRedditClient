@@ -70,9 +70,6 @@ public class TopListModel implements TopListContract.Model {
     @Override
     public void addItemsToCache(List<TopEntry> topEntries) {
         inMemoryRepository.addEntries(topEntries);
-        if (inMemoryRepository.getEntries().size() == MAXIMUM_ITEMS_COUNT) {
-            presenter.stopPagination();
-        }
     }
 
     @Override

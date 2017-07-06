@@ -174,11 +174,6 @@ public class TopListFragment extends Fragment implements TopListContract.View {
                 v -> presenter.loadNextPage());
     }
 
-    @Override
-    public void stopPagination() {
-        recyclerView.clearOnScrollListeners();
-    }
-
     public void dismissSnackbar() {
         if (snackbar != null) {
             snackbar.dismiss();

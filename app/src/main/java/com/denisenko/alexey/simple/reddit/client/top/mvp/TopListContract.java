@@ -24,8 +24,6 @@ public interface TopListContract {
         void showLoadNextPageNetworkError();
 
         void showLoadNextPageUnknownError();
-
-        void stopPagination();
     }
 
     interface Presenter extends BaseContract.Presenter {
@@ -36,7 +34,6 @@ public interface TopListContract {
 
         void refreshList();
 
-        void stopPagination();
 
         boolean isLastPage();
 

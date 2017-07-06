@@ -102,11 +102,6 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
     }
 
     @Override
-    public void stopPagination() {
-        view.stopPagination();
-    }
-
-    @Override
     public boolean isLastPage() {
         return model.isPaginationStopped();
     }
