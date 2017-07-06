@@ -1,6 +1,5 @@
 package com.denisenko.alexey.simple.reddit.client.top.di;
 
-import com.denisenko.alexey.simple.reddit.client.top.mappers.TopListMapper;
 import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListModel;
 
 import javax.inject.Singleton;
@@ -13,12 +12,7 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    TopListModel providesModel() {
+    TopListModel provideModel() {
         return new TopListModel();
-    }
-
-    @Provides
-    TopListMapper provideMapper() {
-        return new TopListMapper();
     }
 }

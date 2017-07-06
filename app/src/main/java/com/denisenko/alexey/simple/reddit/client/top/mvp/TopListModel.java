@@ -2,9 +2,10 @@ package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
 import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.Const;
-import com.denisenko.alexey.simple.reddit.client.pojo.Child;
+import com.denisenko.alexey.simple.reddit.client.top.InMemoryRepository;
+import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
 import com.denisenko.alexey.simple.reddit.client.top.api.ApiInterface;
-import com.denisenko.alexey.simple.reddit.client.top.mappers.RedditToChildList;
+import com.denisenko.alexey.simple.reddit.client.top.mappers.TopListMapper;
 
 import java.util.List;
 
@@ -16,11 +17,13 @@ import io.reactivex.Scheduler;
 
 public class TopListModel implements TopListContract.Model {
 
+    private static final int ITEMS_PER_PAGE = 10;
+
     @Inject
     ApiInterface apiInterface;
 
     @Inject
-    RedditToChildList redditToChildListMapper;
+    TopListMapper topListMapper;
 
     @Inject
     @Named(Const.UI_THREAD)
@@ -30,15 +33,33 @@ public class TopListModel implements TopListContract.Model {
     @Named(Const.IO_THREAD)
     Scheduler ioThread;
 
+    @Inject
+    InMemoryRepository inMemoryRepository;
+
     public TopListModel() {
         App.getComponent().inject(this);
     }
 
     @Override
-    public Observable<List<Child>> getTopEntriesList(int limit, String after) {
-        return apiInterface.getTopEntries(limit, after)
+    public Observable<List<TopEntry>> getFirstPage() {
+        return apiInterface.getTopEntries(ITEMS_PER_PAGE, inMemoryRepository.getLastEntryName())
                 .subscribeOn(ioThread)
                 .observeOn(uiThread)
-                .map(redditToChildListMapper);
+                .map(topListMapper);
+    }
+
+    @Override
+    public boolean isItemsReceived() {
+        return inMemoryRepository != null && inMemoryRepository.getEntries().size() > 0;
+    }
+
+    @Override
+    public Observable<List<TopEntry>> getCachedData() {
+        return Observable.just(inMemoryRepository.getEntries());
+    }
+
+    @Override
+    public void addItemsToCache(List<TopEntry> topEntries) {
+        inMemoryRepository.addEntries(topEntries);
     }
 }

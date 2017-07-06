@@ -1,9 +1,10 @@
 package com.denisenko.alexey.simple.reddit.client.top.di;
 
 import com.denisenko.alexey.simple.reddit.client.Const;
+import com.denisenko.alexey.simple.reddit.client.top.InMemoryRepository;
 import com.denisenko.alexey.simple.reddit.client.top.api.ApiInterface;
 import com.denisenko.alexey.simple.reddit.client.top.api.ApiModule;
-import com.denisenko.alexey.simple.reddit.client.top.mappers.RedditToChildList;
+import com.denisenko.alexey.simple.reddit.client.top.mappers.TopListMapper;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -24,8 +25,8 @@ public class ModelModule {
     }
 
     @Provides
-    RedditToChildList providesRedditToChildListMapper() {
-        return new RedditToChildList();
+    TopListMapper provideMapper() {
+        return new TopListMapper();
     }
 
     @Provides
@@ -42,4 +43,9 @@ public class ModelModule {
         return Schedulers.io();
     }
 
+    @Provides
+    @Singleton
+    InMemoryRepository provideInMemoryRepository() {
+        return new InMemoryRepository();
+    }
 }

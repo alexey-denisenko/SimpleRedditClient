@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class CommonModule {
 
     @Provides
-    CompositeDisposable providesCompositeDisposable() {
+    CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }
 }

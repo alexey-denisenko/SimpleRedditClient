@@ -1,5 +1,7 @@
 package com.denisenko.alexey.simple.reddit.client.top.api;
 
+import com.denisenko.alexey.simple.reddit.client.BuildConfig;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -8,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApiModule {
 
-    private static final boolean ENABLE_LOG = true;
+    private static final boolean ENABLE_LOG = BuildConfig.DEBUG;
 
     public static ApiInterface getApiInterface(String url) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient().newBuilder();

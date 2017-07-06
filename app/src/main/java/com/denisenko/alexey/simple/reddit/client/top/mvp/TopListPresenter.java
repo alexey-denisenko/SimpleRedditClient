@@ -1,21 +1,25 @@
 package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
+import android.util.Log;
+
 import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.common.BasePresenter;
-import com.denisenko.alexey.simple.reddit.client.top.mappers.TopListMapper;
+import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 
 public class TopListPresenter extends BasePresenter implements TopListContract.Presenter {
 
-    @Inject
-    TopListModel model;
+    private static final String TAG = "TopListPresenter";
 
     @Inject
-    TopListMapper topListMapper;
+    TopListModel model;
 
     private TopListContract.View view;
 
@@ -26,17 +30,36 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
     }
 
     @Override
-    public void loadInitial() {
-        Disposable disposable = model.getTopEntriesList(10, "")
-                .map(topListMapper)
-                .subscribe(topEntries -> view.addItems(topEntries),
+    public void loadFirstPage() {
+        Observable<List<TopEntry>> observable;
+        if (!model.isItemsReceived()) {
+            observable = model.getFirstPage();
+            Log.d(TAG, "loadFirstPage: from network");
+        } else {
+            observable = model.getCachedData();
+            Log.d(TAG, "loadFirstPage: from cache");
+        }
+
+        Disposable disposable = observable.subscribe(
+                topEntries -> {
+                    view.showReceivedItems(topEntries);
+                    view.setRefreshing(false);
+                    if (!model.isItemsReceived()) {
+                        model.addItemsToCache(topEntries);
+                    }
+                },
                         throwable -> {
                             throwable.printStackTrace();
                             view.showError();
-                        });
-
-
+                            view.setRefreshing(false);
+                        }
+        );
         addSubscription(disposable);
+    }
+
+    @Override
+    public void loadNextPage() {
+
     }
 
     @Override

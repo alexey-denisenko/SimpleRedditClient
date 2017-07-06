@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,7 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
         View view = inflater.inflate(R.layout.fragment_top_list, container, false);
         ButterKnife.bind(this, view);
         initRecyclerView();
-        presenter.loadInitial();
+        presenter.loadFirstPage();
         return view;
     }
 
@@ -86,14 +85,14 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
 
     @Override
     public void setRefreshing(boolean isLoading) {
-
+        swipeRefreshLayout.setRefreshing(isLoading);
     }
 
     @Override
-    public void addItems(List<TopEntry> items) {
+    public void showReceivedItems(List<TopEntry> items) {
         adapter.addItems(items);
-        Log.d(TAG, "addItems: ");
     }
+
 
     @Override
     public void showError() {

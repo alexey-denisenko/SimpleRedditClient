@@ -1,7 +1,6 @@
 package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
 import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
-import com.denisenko.alexey.simple.reddit.client.pojo.Child;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
 
 import java.util.List;
@@ -14,22 +13,32 @@ public interface TopListContract {
 
         void setRefreshing(boolean isLoading);
 
-        void addItems(List<TopEntry> items);
+        void showReceivedItems(List<TopEntry> items);
 
         void showError();
 
         void stopPagination();
+
+
     }
 
     interface Presenter extends BaseContract.Presenter {
 
-        void loadInitial();
+        void loadFirstPage();
+
+        void loadNextPage();
 
         void refreshList();
     }
 
     interface Model {
 
-        Observable<List<Child>> getTopEntriesList(int limit, String after);
+        Observable<List<TopEntry>> getFirstPage();
+
+        boolean isItemsReceived();
+
+        Observable<List<TopEntry>> getCachedData();
+
+        void addItemsToCache(List<TopEntry> topEntries);
     }
 }
