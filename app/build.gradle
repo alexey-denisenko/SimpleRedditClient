@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.denisenko.alexey.simple.reddit.client"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -49,5 +49,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.github.kevinsawicki:timeago:1.0.1'
+
+    debugCompile "com.github.brianPlummer:tinydancer:0.1.1"
+    releaseCompile "com.github.brianPlummer:tinydancer-noop:0.1.1"
+    testCompile "com.github.brianPlummer:tinydancer-noop:0.1.1"
 }

@@ -91,7 +91,6 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
 
     @Override
     public void refreshList() {
-        view.setRefreshing(true);
         model.clearRepository();
         loadFirstPage();
     }

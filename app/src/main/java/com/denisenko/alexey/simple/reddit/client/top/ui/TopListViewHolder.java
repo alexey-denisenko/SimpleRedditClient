@@ -3,6 +3,7 @@ package com.denisenko.alexey.simple.reddit.client.top.ui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -10,14 +11,15 @@ import android.widget.TextView;
 
 import com.denisenko.alexey.simple.reddit.client.R;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
-import com.github.kevinsawicki.timeago.TimeAgo;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.text.format.DateUtils.FORMAT_NUMERIC_DATE;
 
 public class TopListViewHolder extends RecyclerView.ViewHolder {
 
@@ -65,13 +67,16 @@ public class TopListViewHolder extends RecyclerView.ViewHolder {
         Resources res = context.getResources();
         int num = topEntry.getNumberOfComments();
 
-        long time = topEntry.getCreatedAt();
-        long current = new Date().getTime();
-        String timeAgo = new TimeAgo().timeAgo(current - time);
+        long time = TimeUnit.SECONDS.toMillis(topEntry.getCreatedAt());
+        String timeAgo = DateUtils.getRelativeTimeSpanString(time,
+                System.currentTimeMillis(),
+                DateUtils.MINUTE_IN_MILLIS,
+                FORMAT_NUMERIC_DATE)
+                .toString();
 
         String subtitleText = context.getString(R.string.top_list_submitted) +
-                timeAgo +
-                context.getString(R.string.top_list_by) +
+                " " + timeAgo + " " +
+                context.getString(R.string.top_list_by) + " " +
                 topEntry.getAuthor();
 
         String numOfCommentsText = num + " " + res.getQuantityString(R.plurals.num_of_comments, num);

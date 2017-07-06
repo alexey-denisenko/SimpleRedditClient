@@ -36,6 +36,7 @@
             android:id="@+id/top_list_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scrollHorizontally="false"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             tools:text="LPT: If your printer is out of black ink, and you need urgent printout please change the color of the font #010101, which is 99% grey, it will help you quite a lot." />
 
@@ -43,6 +44,7 @@
             android:id="@+id/top_list_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scrollHorizontally="false"
             tools:text="submitted 23 hours ago by BaconBoris" />
 
         <TextView

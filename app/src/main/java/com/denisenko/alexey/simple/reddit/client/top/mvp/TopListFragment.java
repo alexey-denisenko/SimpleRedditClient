@@ -72,6 +72,7 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
         rootView = inflater.inflate(R.layout.fragment_top_list, container, false);
         ButterKnife.bind(this, rootView);
         initRecyclerView();
+        initializeSwipeRefresh();
         presenter.loadFirstPage();
         return rootView;
     }
