@@ -7,29 +7,31 @@ import android.view.ViewGroup;
 
 import com.denisenko.alexey.simple.reddit.client.R;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListContract;
 
 import java.util.List;
 
 public class TopListAdapter extends RecyclerView.Adapter<TopListViewHolder> {
 
     private List<TopEntry> topEntries;
+    private TopListContract.Presenter presenter;
 
-    private TopListViewHolder.OnEntryClickListener onClickListener;
 
-    public TopListAdapter(List<TopEntry> topEntries, TopListViewHolder.OnEntryClickListener onClickListener) {
+    public TopListAdapter(List<TopEntry> topEntries, TopListContract.Presenter presenter) {
         this.topEntries = topEntries;
-        this.onClickListener = onClickListener;
+        this.presenter = presenter;
     }
 
     @Override
     public TopListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new TopListViewHolder(view, onClickListener);
+        return new TopListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(TopListViewHolder holder, int position) {
         holder.bind(topEntries.get(position));
+        holder.image.setOnClickListener(v -> presenter.onItemClick(topEntries.get(position)));
     }
 
     @Override

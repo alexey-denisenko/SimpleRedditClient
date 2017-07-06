@@ -39,6 +39,8 @@ public interface TopListContract {
         void stopPagination();
 
         boolean isLastPage();
+
+        void onItemClick(TopEntry entry);
     }
 
     interface Model {

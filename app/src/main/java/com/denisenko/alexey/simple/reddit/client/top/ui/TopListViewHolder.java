@@ -40,12 +40,10 @@ public class TopListViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
 
-    TopListViewHolder(View itemView, OnEntryClickListener onTopEntryClick) {
+    TopListViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         context = itemView.getContext();
-
-        itemView.setOnClickListener(v -> onTopEntryClick.onEntryClick());
     }
 
     void bind(TopEntry topEntry) {
@@ -84,10 +82,5 @@ public class TopListViewHolder extends RecyclerView.ViewHolder {
         title.setText(topEntry.getTitle());
         subtitle.setText(subtitleText);
         numOfComments.setText(numOfCommentsText);
-    }
-
-
-    public interface OnEntryClickListener {
-        void onEntryClick();
     }
 }

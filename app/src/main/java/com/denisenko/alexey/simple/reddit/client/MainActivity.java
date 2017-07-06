@@ -1,9 +1,16 @@
 package com.denisenko.alexey.simple.reddit.client;
 
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
+
+public class MainActivity extends AppCompatActivity implements TopListActivityCallback {
+
+    public static final String IMAGE_URL = "image_url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -11,4 +18,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    public void startWebViewActivity(TopEntry entry) {
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
+        builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(entry.getUrl()));
+    }
 }

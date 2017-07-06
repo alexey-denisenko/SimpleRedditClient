@@ -3,6 +3,7 @@ package com.denisenko.alexey.simple.reddit.client.top.mvp;
 import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.common.BasePresenter;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,10 +23,15 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
 
     private TopListContract.View view;
 
-    public TopListPresenter(TopListContract.View view) {
+    private TopListActivityCallback callback;
+
+    public TopListPresenter(TopListContract.View view, TopListActivityCallback callback) {
         super();
         App.getComponent().inject(this);
+
+        this.callback = callback;
         this.view = view;
+
         model.setPresenter(this);
     }
 
@@ -103,5 +109,10 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
     @Override
     public boolean isLastPage() {
         return model.isPaginationStopped();
+    }
+
+    @Override
+    public void onItemClick(TopEntry entry) {
+        callback.startWebViewActivity(entry);
     }
 }

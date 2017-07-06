@@ -1,6 +1,7 @@
 package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,11 +17,11 @@ import android.view.ViewGroup;
 
 import com.denisenko.alexey.simple.reddit.client.R;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
 import com.denisenko.alexey.simple.reddit.client.top.di.DaggerViewComponent;
 import com.denisenko.alexey.simple.reddit.client.top.di.ViewComponent;
 import com.denisenko.alexey.simple.reddit.client.top.di.ViewModule;
 import com.denisenko.alexey.simple.reddit.client.top.ui.TopListAdapter;
-import com.denisenko.alexey.simple.reddit.client.top.ui.TopListViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TopListFragment extends Fragment implements TopListContract.View, TopListViewHolder.OnEntryClickListener {
+public class TopListFragment extends Fragment implements TopListContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -51,7 +52,20 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
 
     private LinearLayoutManager layoutManager;
 
+    private TopListActivityCallback callback;
+
     public TopListFragment() {
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            callback = (TopListActivityCallback) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement activityCallback");
+        }
     }
 
     @Override
@@ -59,7 +73,7 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
         super.onCreate(savedInstanceState);
         if (viewComponent == null) {
             viewComponent = DaggerViewComponent.builder()
-                    .viewModule(new ViewModule(this))
+                    .viewModule(new ViewModule(this, callback))
                     .build();
         }
         viewComponent.inject(this);
@@ -83,7 +97,7 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
     }
 
     private void initRecyclerView() {
-        adapter = new TopListAdapter(new ArrayList<>(), this);
+        adapter = new TopListAdapter(new ArrayList<>(), presenter);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -163,11 +177,6 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
     @Override
     public void stopPagination() {
         recyclerView.clearOnScrollListeners();
-    }
-
-    @Override
-    public void onEntryClick() {
-
     }
 
     public void dismissSnackbar() {
