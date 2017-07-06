@@ -13,8 +13,8 @@ import java.util.List;
 
 public class TopListAdapter extends RecyclerView.Adapter<TopListViewHolder> {
 
-    private List<TopEntry> topEntries;
-    private TopListContract.Presenter presenter;
+    private final List<TopEntry> topEntries;
+    private final TopListContract.Presenter presenter;
 
 
     public TopListAdapter(List<TopEntry> topEntries, TopListContract.Presenter presenter) {

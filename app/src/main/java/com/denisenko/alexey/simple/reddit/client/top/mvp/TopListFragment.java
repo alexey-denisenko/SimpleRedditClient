@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.denisenko.alexey.simple.reddit.client.BaseFragment;
 import com.denisenko.alexey.simple.reddit.client.R;
+import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
 import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
 import com.denisenko.alexey.simple.reddit.client.top.di.DaggerViewComponent;
@@ -31,7 +32,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TopListFragment extends Fragment implements TopListContract.View {
+public class TopListFragment extends BaseFragment implements TopListContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -91,11 +92,6 @@ public class TopListFragment extends Fragment implements TopListContract.View {
         return rootView;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     private void initRecyclerView() {
         adapter = new TopListAdapter(new ArrayList<>(), presenter);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -112,7 +108,7 @@ public class TopListFragment extends Fragment implements TopListContract.View {
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
                 boolean isLoading = swipeRefreshLayout.isRefreshing();
-                if (!isLoading && !presenter.isLastPage()) {
+                if (!isLoading && presenter.isLastPage()) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                             && firstVisibleItemPosition >= 0) {
                         presenter.loadNextPage();
@@ -174,22 +170,27 @@ public class TopListFragment extends Fragment implements TopListContract.View {
                 v -> presenter.loadNextPage());
     }
 
-    public void dismissSnackbar() {
+    private void dismissSnackbar() {
         if (snackbar != null) {
             snackbar.dismiss();
             snackbar = null;
         }
     }
 
-    public void showSnackbar(@NonNull String message,
-                             @NonNull String action,
-                             int displayTime,
-                             @NonNull View.OnClickListener onClickListener) {
+    private void showSnackbar(@NonNull String message,
+                              @NonNull String action,
+                              int displayTime,
+                              @NonNull View.OnClickListener onClickListener) {
 
         dismissSnackbar();
 
         snackbar = Snackbar.make(rootView, message, displayTime);
         snackbar.setAction(action, onClickListener);
         snackbar.show();
+    }
+
+    @Override
+    protected BaseContract.Presenter getPresenter() {
+        return presenter;
     }
 }

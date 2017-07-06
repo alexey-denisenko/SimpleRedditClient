@@ -10,9 +10,9 @@ import dagger.Provides;
 @Module
 public class ViewModule {
 
-    private TopListContract.View view;
+    private final TopListContract.View view;
 
-    private TopListActivityCallback callback;
+    private final TopListActivityCallback callback;
 
     public ViewModule(TopListContract.View view, TopListActivityCallback callback) {
         this.view = view;

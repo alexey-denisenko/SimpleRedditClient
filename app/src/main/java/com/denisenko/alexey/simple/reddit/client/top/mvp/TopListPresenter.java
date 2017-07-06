@@ -16,14 +16,12 @@ import io.reactivex.disposables.Disposable;
 
 public class TopListPresenter extends BasePresenter implements TopListContract.Presenter {
 
-    private static final String TAG = "TopListPresenter";
-
     @Inject
     TopListModel model;
 
-    private TopListContract.View view;
+    private final TopListContract.View view;
 
-    private TopListActivityCallback callback;
+    private final TopListActivityCallback callback;
 
     public TopListPresenter(TopListContract.View view, TopListActivityCallback callback) {
         super();
@@ -31,8 +29,6 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
 
         this.callback = callback;
         this.view = view;
-
-        model.setPresenter(this);
     }
 
     @Override
@@ -103,7 +99,7 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
 
     @Override
     public boolean isLastPage() {
-        return model.isPaginationStopped();
+        return model.isLastPage();
     }
 
     @Override

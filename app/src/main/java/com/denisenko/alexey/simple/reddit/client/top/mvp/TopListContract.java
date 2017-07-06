@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 
 public interface TopListContract {
 
-    interface View {
+    interface View extends BaseContract.View {
 
         void setRefreshing(boolean isLoading);
 
@@ -34,15 +34,12 @@ public interface TopListContract {
 
         void refreshList();
 
-
         boolean isLastPage();
 
         void onItemClick(TopEntry entry);
     }
 
-    interface Model {
-
-        void setPresenter(TopListContract.Presenter presenter);
+    interface Model extends BaseContract.Model {
 
         Observable<List<TopEntry>> getPage();
 
@@ -52,7 +49,7 @@ public interface TopListContract {
 
         void addItemsToCache(List<TopEntry> topEntries);
 
-        boolean isPaginationStopped();
+        boolean isLastPage();
 
         void clearRepository();
     }

@@ -2,13 +2,13 @@ package com.denisenko.alexey.simple.reddit.client.top;
 
 public class TopEntry {
 
-    private int numberOfComments;
-    private long createdAt;
-    private String title;
-    private String author;
-    private String thumbnailUrl;
-    private String url;
-    private String name;
+    private final int numberOfComments;
+    private final long createdAt;
+    private final String title;
+    private final String author;
+    private final String thumbnailUrl;
+    private final String url;
+    private final String name;
 
     public TopEntry(int numberOfComments,
                     long createdAt,

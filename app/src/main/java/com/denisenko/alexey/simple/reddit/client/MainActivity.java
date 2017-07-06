@@ -10,8 +10,6 @@ import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
 
 public class MainActivity extends AppCompatActivity implements TopListActivityCallback {
 
-    public static final String IMAGE_URL = "image_url";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

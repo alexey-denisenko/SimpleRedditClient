@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 
 import static android.text.format.DateUtils.FORMAT_NUMERIC_DATE;
 
-public class TopListViewHolder extends RecyclerView.ViewHolder {
+class TopListViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.top_list_progress_bar)
     ProgressBar progressBar;
@@ -38,7 +38,7 @@ public class TopListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.top_list_num_comments)
     TextView numOfComments;
 
-    private Context context;
+    private final Context context;
 
     TopListViewHolder(View itemView) {
         super(itemView);

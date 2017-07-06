@@ -38,15 +38,8 @@ public class TopListModel implements TopListContract.Model {
     @Inject
     InMemoryRepository inMemoryRepository;
 
-    private TopListContract.Presenter presenter;
-
     public TopListModel() {
         App.getComponent().inject(this);
-    }
-
-    @Override
-    public void setPresenter(TopListContract.Presenter presenter) {
-        this.presenter = presenter;
     }
 
     @Override
@@ -73,7 +66,7 @@ public class TopListModel implements TopListContract.Model {
     }
 
     @Override
-    public boolean isPaginationStopped() {
+    public boolean isLastPage() {
         return inMemoryRepository.getEntries().size() == MAXIMUM_ITEMS_COUNT;
     }
 
