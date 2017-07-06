@@ -7,8 +7,6 @@ public class InMemoryRepository {
 
     private List<TopEntry> entries = new ArrayList<>();
 
-    private String lastEntryName;
-
     public InMemoryRepository() {
     }
 
@@ -25,10 +23,14 @@ public class InMemoryRepository {
     }
 
     public String getLastEntryName() {
-        return lastEntryName;
+
+        if (entries.size() > 0) {
+            return entries.get(entries.size() - 1).getName();
+        }
+        return "";
     }
 
-    public void setLastEntryName(String lastEntryName) {
-        this.lastEntryName = lastEntryName;
+    public void clear() {
+        entries.clear();
     }
 }

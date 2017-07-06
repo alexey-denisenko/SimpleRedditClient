@@ -42,16 +42,18 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListViewHolder> {
         return R.layout.item_top_list;
     }
 
-    public List<TopEntry> getTopEntries() {
+    public List<TopEntry> getItems() {
         return topEntries;
     }
 
-    public void setTopEntries(List<TopEntry> topEntries) {
-        this.topEntries = topEntries;
+    public void setItems(List<TopEntry> items) {
+        topEntries.clear();
+        topEntries.addAll(items);
+        notifyDataSetChanged();
     }
 
-    public void addItems(List<TopEntry> topEntries) {
-        this.topEntries.addAll(topEntries);
+    public void addItems(List<TopEntry> items) {
+        topEntries.addAll(items);
         notifyDataSetChanged();
     }
 }

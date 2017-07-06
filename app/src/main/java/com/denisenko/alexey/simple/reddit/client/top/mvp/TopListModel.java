@@ -19,6 +19,8 @@ public class TopListModel implements TopListContract.Model {
 
     private static final int ITEMS_PER_PAGE = 10;
 
+    private static final int MAXIMUM_ITEMS_COUNT = 50;
+
     @Inject
     ApiInterface apiInterface;
 
@@ -36,12 +38,19 @@ public class TopListModel implements TopListContract.Model {
     @Inject
     InMemoryRepository inMemoryRepository;
 
+    private TopListContract.Presenter presenter;
+
     public TopListModel() {
         App.getComponent().inject(this);
     }
 
     @Override
-    public Observable<List<TopEntry>> getFirstPage() {
+    public void setPresenter(TopListContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public Observable<List<TopEntry>> getPage() {
         return apiInterface.getTopEntries(ITEMS_PER_PAGE, inMemoryRepository.getLastEntryName())
                 .subscribeOn(ioThread)
                 .observeOn(uiThread)
@@ -61,5 +70,18 @@ public class TopListModel implements TopListContract.Model {
     @Override
     public void addItemsToCache(List<TopEntry> topEntries) {
         inMemoryRepository.addEntries(topEntries);
+        if (inMemoryRepository.getEntries().size() == MAXIMUM_ITEMS_COUNT) {
+            presenter.stopPagination();
+        }
+    }
+
+    @Override
+    public boolean isPaginationStopped() {
+        return inMemoryRepository.getEntries().size() == MAXIMUM_ITEMS_COUNT;
+    }
+
+    @Override
+    public void clearRepository() {
+        inMemoryRepository.clear();
     }
 }

@@ -13,13 +13,19 @@ public interface TopListContract {
 
         void setRefreshing(boolean isLoading);
 
-        void showReceivedItems(List<TopEntry> items);
+        void showFirstPage(List<TopEntry> items);
 
-        void showError();
+        void showNextPage(List<TopEntry> items);
+
+        void showLoadFirstPageNetworkError();
+
+        void showLoadFirstPageUnknownError();
+
+        void showLoadNextPageNetworkError();
+
+        void showLoadNextPageUnknownError();
 
         void stopPagination();
-
-
     }
 
     interface Presenter extends BaseContract.Presenter {
@@ -29,16 +35,26 @@ public interface TopListContract {
         void loadNextPage();
 
         void refreshList();
+
+        void stopPagination();
+
+        boolean isLastPage();
     }
 
     interface Model {
 
-        Observable<List<TopEntry>> getFirstPage();
+        void setPresenter(TopListContract.Presenter presenter);
+
+        Observable<List<TopEntry>> getPage();
 
         boolean isItemsReceived();
 
         Observable<List<TopEntry>> getCachedData();
 
         void addItemsToCache(List<TopEntry> topEntries);
+
+        boolean isPaginationStopped();
+
+        void clearRepository();
     }
 }

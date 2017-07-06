@@ -2,7 +2,9 @@ package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -30,8 +32,6 @@ import butterknife.ButterKnife;
 
 public class TopListFragment extends Fragment implements TopListContract.View, TopListViewHolder.OnEntryClickListener {
 
-    private static final String TAG = "TopListFragment";
-
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -45,8 +45,13 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
 
     private ViewComponent viewComponent;
 
+    private Snackbar snackbar;
+
+    private View rootView;
+
+    private LinearLayoutManager layoutManager;
+
     public TopListFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -64,11 +69,11 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_top_list, container, false);
-        ButterKnife.bind(this, view);
+        rootView = inflater.inflate(R.layout.fragment_top_list, container, false);
+        ButterKnife.bind(this, rootView);
         initRecyclerView();
         presenter.loadFirstPage();
-        return view;
+        return rootView;
     }
 
     @Override
@@ -78,9 +83,33 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
 
     private void initRecyclerView() {
         adapter = new TopListAdapter(new ArrayList<>(), this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                boolean isLoading = swipeRefreshLayout.isRefreshing();
+                if (!isLoading && !presenter.isLastPage()) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0) {
+                        presenter.loadNextPage();
+                    }
+                }
+            }
+        });
+    }
+
+    private void initializeSwipeRefresh() {
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.refreshList());
     }
 
     @Override
@@ -89,23 +118,73 @@ public class TopListFragment extends Fragment implements TopListContract.View, T
     }
 
     @Override
-    public void showReceivedItems(List<TopEntry> items) {
+    public void showFirstPage(List<TopEntry> items) {
+        adapter.setItems(items);
+    }
+
+    @Override
+    public void showNextPage(List<TopEntry> items) {
         adapter.addItems(items);
     }
 
+    @Override
+    public void showLoadFirstPageNetworkError() {
+        showSnackbar(getString(R.string.error_no_internet),
+                getString(R.string.retry),
+                Snackbar.LENGTH_LONG,
+                v -> presenter.loadFirstPage());
+    }
 
     @Override
-    public void showError() {
+    public void showLoadFirstPageUnknownError() {
+        showSnackbar(getString(R.string.error_unknown),
+                getString(R.string.retry),
+                Snackbar.LENGTH_LONG,
+                v -> presenter.loadFirstPage());
+    }
 
+    @Override
+    public void showLoadNextPageNetworkError() {
+        showSnackbar(getString(R.string.error_no_internet),
+                getString(R.string.retry),
+                Snackbar.LENGTH_LONG,
+                v -> presenter.loadNextPage());
+    }
+
+    @Override
+    public void showLoadNextPageUnknownError() {
+        showSnackbar(getString(R.string.error_unknown),
+                getString(R.string.retry),
+                Snackbar.LENGTH_LONG,
+                v -> presenter.loadNextPage());
     }
 
     @Override
     public void stopPagination() {
-
+        recyclerView.clearOnScrollListeners();
     }
 
     @Override
     public void onEntryClick() {
 
+    }
+
+    public void dismissSnackbar() {
+        if (snackbar != null) {
+            snackbar.dismiss();
+            snackbar = null;
+        }
+    }
+
+    public void showSnackbar(@NonNull String message,
+                             @NonNull String action,
+                             int displayTime,
+                             @NonNull View.OnClickListener onClickListener) {
+
+        dismissSnackbar();
+
+        snackbar = Snackbar.make(rootView, message, displayTime);
+        snackbar.setAction(action, onClickListener);
+        snackbar.show();
     }
 }

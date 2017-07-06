@@ -1,11 +1,10 @@
 package com.denisenko.alexey.simple.reddit.client.top.mvp;
 
-import android.util.Log;
-
 import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.common.BasePresenter;
 import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,43 +26,83 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
         super();
         App.getComponent().inject(this);
         this.view = view;
+        model.setPresenter(this);
     }
 
     @Override
     public void loadFirstPage() {
+
+        view.setRefreshing(true);
+
         Observable<List<TopEntry>> observable;
         if (!model.isItemsReceived()) {
-            observable = model.getFirstPage();
-            Log.d(TAG, "loadFirstPage: from network");
+            observable = model.getPage();
         } else {
             observable = model.getCachedData();
-            Log.d(TAG, "loadFirstPage: from cache");
         }
 
         Disposable disposable = observable.subscribe(
                 topEntries -> {
-                    view.showReceivedItems(topEntries);
                     view.setRefreshing(false);
+                    view.showFirstPage(topEntries);
+
                     if (!model.isItemsReceived()) {
                         model.addItemsToCache(topEntries);
                     }
                 },
-                        throwable -> {
-                            throwable.printStackTrace();
-                            view.showError();
-                            view.setRefreshing(false);
-                        }
+                throwable -> {
+                    view.setRefreshing(false);
+                    throwable.printStackTrace();
+
+                    if (throwable instanceof IOException) {
+                        view.showLoadFirstPageNetworkError();
+                    } else {
+                        view.showLoadFirstPageUnknownError();
+                    }
+                }
         );
+
         addSubscription(disposable);
     }
 
     @Override
     public void loadNextPage() {
 
+        view.setRefreshing(true);
+
+        model.getPage().subscribe(
+                topEntries -> {
+                    view.setRefreshing(false);
+                    view.showNextPage(topEntries);
+                    model.addItemsToCache(topEntries);
+                },
+                throwable -> {
+                    view.setRefreshing(false);
+                    throwable.printStackTrace();
+
+                    if (throwable instanceof IOException) {
+                        view.showLoadNextPageNetworkError();
+                    } else {
+                        view.showLoadNextPageUnknownError();
+                    }
+                }
+        );
     }
 
     @Override
     public void refreshList() {
-        //TODO implement this
+        view.setRefreshing(true);
+        model.clearRepository();
+        loadFirstPage();
+    }
+
+    @Override
+    public void stopPagination() {
+        view.stopPagination();
+    }
+
+    @Override
+    public boolean isLastPage() {
+        return model.isPaginationStopped();
     }
 }

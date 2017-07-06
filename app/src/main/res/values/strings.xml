@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">SimpleRedditClient</string>
-    <string name="top_list_submitted">submitted</string>
-    <string name="top_list_by">by</string>
+
+    <string name="top_list_submitted">submitted\s</string>
+    <string name="top_list_by">\sby\s</string>
+
+    <string name="retry">Retry</string>
+
+    <string name="error_no_internet">No internet connection detected</string>
+    <string name="error_unknown">Oops… sorry, something went wrong</string>
 </resources>

@@ -22,7 +22,8 @@ public class TopListMapper implements Function<Reddit, List<TopEntry>> {
                         child.getData().getTitle(),
                         child.getData().getAuthor(),
                         child.getData().getThumbnail(),
-                        child.getData().getUrl()))
+                        child.getData().getUrl(),
+                        child.getData().getName()))
                 .toList()
                 .blockingGet();
     }

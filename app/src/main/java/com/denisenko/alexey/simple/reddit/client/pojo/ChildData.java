@@ -22,6 +22,9 @@ public class ChildData {
     @SerializedName("url")
     private String url;
 
+    @SerializedName("name")
+    private String name;
+
     public String getTitle() {
         return title;
     }
@@ -44,5 +47,9 @@ public class ChildData {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getName() {
+        return name;
     }
 }
