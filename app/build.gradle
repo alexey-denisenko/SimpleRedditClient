@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.denisenko.alexey.simple.reddit.client"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -23,35 +23,38 @@ android {
     }
 }
 
+ext {
+    supportLibraryVersion = "26.1.0"
+    retrofitVersion = "2.3.0"
+    daggerVersion = "2.12"
+    butterKnifeVersion = "8.6.0"
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     //Support
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:recyclerview-v7:25.4.0'
-    compile 'com.android.support:design:25.4.0'
-    compile 'com.android.support:customtabs:25.4.0'
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:customtabs:$supportLibraryVersion"
 
     //Network
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:3.8.0"
 
     //Rx
-    compile "io.reactivex.rxjava2:rxjava:2.1.1"
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile "io.reactivex.rxjava2:rxjava:2.1.5"
+    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
 
     //Dependency injection
-    compile 'com.google.dagger:dagger:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    compile "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //Other
-    compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
-    debugCompile "com.github.brianPlummer:tinydancer:0.1.1"
-    releaseCompile "com.github.brianPlummer:tinydancer-noop:0.1.1"
-    testCompile "com.github.brianPlummer:tinydancer-noop:0.1.1"
+    compile "com.jakewharton:butterknife:$butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+    compile "com.squareup.picasso:picasso:2.5.2"
 }
