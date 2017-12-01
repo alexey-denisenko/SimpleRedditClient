@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top.ui;
+package com.denisenko.alexey.simple.reddit.client.top_list.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.denisenko.alexey.simple.reddit.client.R;
-import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

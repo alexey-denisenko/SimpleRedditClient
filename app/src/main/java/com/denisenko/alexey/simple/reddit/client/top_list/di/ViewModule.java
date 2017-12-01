@@ -1,8 +1,8 @@
-package com.denisenko.alexey.simple.reddit.client.top.di;
+package com.denisenko.alexey.simple.reddit.client.top_list.di;
 
-import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListContract;
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListPresenter;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopListActivityCallback;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListContract;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListPresenter;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,9 +1,9 @@
-package com.denisenko.alexey.simple.reddit.client.top.mvp;
+package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
 
 import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.common.BasePresenter;
-import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
-import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopListActivityCallback;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.denisenko.alexey.simple.reddit.client.top.di;
+package com.denisenko.alexey.simple.reddit.client.top_list.di;
 
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListFragment;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListFragment;
 
 import dagger.Component;
 

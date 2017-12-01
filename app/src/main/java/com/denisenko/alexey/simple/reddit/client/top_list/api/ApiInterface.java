@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top.api;
+package com.denisenko.alexey.simple.reddit.client.top_list.api;
 
 
 import com.denisenko.alexey.simple.reddit.client.pojo.Reddit;

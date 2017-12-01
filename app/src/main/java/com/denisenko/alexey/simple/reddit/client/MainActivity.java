@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.app.AppCompatActivity;
 
-import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
-import com.denisenko.alexey.simple.reddit.client.top.TopListActivityCallback;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopListActivityCallback;
 
 public class MainActivity extends AppCompatActivity implements TopListActivityCallback {
 

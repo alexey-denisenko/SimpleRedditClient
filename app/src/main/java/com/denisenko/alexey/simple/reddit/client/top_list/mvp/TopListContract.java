@@ -1,7 +1,7 @@
-package com.denisenko.alexey.simple.reddit.client.top.mvp;
+package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
 
 import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
-import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
 
 import java.util.List;
 
