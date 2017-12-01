@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top.ui;
+package com.denisenko.alexey.simple.reddit.client.top_list.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.denisenko.alexey.simple.reddit.client.R;
-import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListContract;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListContract;
 
 import java.util.List;
 

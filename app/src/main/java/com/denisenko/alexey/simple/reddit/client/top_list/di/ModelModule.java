@@ -1,10 +1,10 @@
-package com.denisenko.alexey.simple.reddit.client.top.di;
+package com.denisenko.alexey.simple.reddit.client.top_list.di;
 
 import com.denisenko.alexey.simple.reddit.client.Const;
-import com.denisenko.alexey.simple.reddit.client.top.InMemoryRepository;
-import com.denisenko.alexey.simple.reddit.client.top.api.ApiInterface;
-import com.denisenko.alexey.simple.reddit.client.top.api.ApiModule;
-import com.denisenko.alexey.simple.reddit.client.top.mappers.TopListMapper;
+import com.denisenko.alexey.simple.reddit.client.top_list.InMemoryRepository;
+import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiInterface;
+import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiModule;
+import com.denisenko.alexey.simple.reddit.client.top_list.mappers.TopListMapper;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

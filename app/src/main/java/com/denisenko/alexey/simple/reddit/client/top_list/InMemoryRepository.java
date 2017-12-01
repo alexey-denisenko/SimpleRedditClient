@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top;
+package com.denisenko.alexey.simple.reddit.client.top_list;
 
 import java.util.ArrayList;
 import java.util.List;

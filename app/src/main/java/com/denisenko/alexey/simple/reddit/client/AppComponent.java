@@ -2,10 +2,10 @@ package com.denisenko.alexey.simple.reddit.client;
 
 import com.denisenko.alexey.simple.reddit.client.common.BasePresenter;
 import com.denisenko.alexey.simple.reddit.client.common.di.CommonModule;
-import com.denisenko.alexey.simple.reddit.client.top.di.ModelModule;
-import com.denisenko.alexey.simple.reddit.client.top.di.PresenterModule;
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListModel;
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListPresenter;
+import com.denisenko.alexey.simple.reddit.client.top_list.di.ModelModule;
+import com.denisenko.alexey.simple.reddit.client.top_list.di.PresenterModule;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListModel;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListPresenter;
 
 import javax.inject.Singleton;
 

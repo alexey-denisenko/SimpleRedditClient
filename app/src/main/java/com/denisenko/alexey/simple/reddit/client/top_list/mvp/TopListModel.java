@@ -1,11 +1,11 @@
-package com.denisenko.alexey.simple.reddit.client.top.mvp;
+package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
 
 import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.Const;
-import com.denisenko.alexey.simple.reddit.client.top.InMemoryRepository;
-import com.denisenko.alexey.simple.reddit.client.top.TopEntry;
-import com.denisenko.alexey.simple.reddit.client.top.api.ApiInterface;
-import com.denisenko.alexey.simple.reddit.client.top.mappers.TopListMapper;
+import com.denisenko.alexey.simple.reddit.client.top_list.InMemoryRepository;
+import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiInterface;
+import com.denisenko.alexey.simple.reddit.client.top_list.mappers.TopListMapper;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.denisenko.alexey.simple.reddit.client.top.di;
+package com.denisenko.alexey.simple.reddit.client.top_list.di;
 
-import com.denisenko.alexey.simple.reddit.client.top.mvp.TopListModel;
+import com.denisenko.alexey.simple.reddit.client.top_list.mvp.TopListModel;
 
 import javax.inject.Singleton;
 
