@@ -1,6 +1,5 @@
 package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
 
-import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.Const;
 import com.denisenko.alexey.simple.reddit.client.top_list.InMemoryRepository;
 import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
@@ -21,25 +20,24 @@ public class TopListModel implements TopListContract.Model {
 
     private static final int MAXIMUM_ITEMS_COUNT = 50;
 
-    @Inject
-    ApiInterface apiInterface;
+    private InMemoryRepository inMemoryRepository;
+    private TopListMapper topListMapper;
+    private ApiInterface apiInterface;
+    private Scheduler uiThread;
+    private Scheduler ioThread;
 
     @Inject
-    TopListMapper topListMapper;
+    public TopListModel(InMemoryRepository inMemoryRepository,
+                        TopListMapper topListMapper,
+                        ApiInterface apiInterface,
+                        @Named(Const.UI_THREAD) Scheduler uiThread,
+                        @Named(Const.IO_THREAD) Scheduler ioThread) {
 
-    @Inject
-    @Named(Const.UI_THREAD)
-    Scheduler uiThread;
-
-    @Inject
-    @Named(Const.IO_THREAD)
-    Scheduler ioThread;
-
-    @Inject
-    InMemoryRepository inMemoryRepository;
-
-    public TopListModel() {
-        App.getComponent().inject(this);
+        this.inMemoryRepository = inMemoryRepository;
+        this.topListMapper = topListMapper;
+        this.apiInterface = apiInterface;
+        this.uiThread = uiThread;
+        this.ioThread = ioThread;
     }
 
     @Override

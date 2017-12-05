@@ -1,7 +1,5 @@
 package com.denisenko.alexey.simple.reddit.client.common;
 
-import com.denisenko.alexey.simple.reddit.client.App;
-
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -9,11 +7,11 @@ import io.reactivex.disposables.Disposable;
 
 public class BasePresenter implements BaseContract.Presenter {
 
-    @Inject
-    CompositeDisposable compositeDisposable;
+    protected CompositeDisposable compositeDisposable;
 
-    public BasePresenter() {
-        App.getComponent().inject(this);
+    @Inject
+    public BasePresenter(CompositeDisposable compositeDisposable) {
+        this.compositeDisposable = compositeDisposable;
     }
 
     protected void addSubscription(Disposable disposable) {
