@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
+package com.denisenko.alexey.simple.reddit.client.ui.top;
 
 
 import android.content.Context;
@@ -14,15 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.denisenko.alexey.simple.reddit.client.DaggerAppComponent;
 import com.denisenko.alexey.simple.reddit.client.R;
 import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
 import com.denisenko.alexey.simple.reddit.client.common.BaseFragment;
-import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
-import com.denisenko.alexey.simple.reddit.client.top_list.TopListActivityCallback;
-import com.denisenko.alexey.simple.reddit.client.top_list.di.TopListComponent;
-import com.denisenko.alexey.simple.reddit.client.top_list.di.TopListModule;
-import com.denisenko.alexey.simple.reddit.client.top_list.ui.TopListAdapter;
+import com.denisenko.alexey.simple.reddit.client.dagger.component.DaggerAppComponent;
+import com.denisenko.alexey.simple.reddit.client.dagger.component.TopListComponent;
+import com.denisenko.alexey.simple.reddit.client.dagger.module.TopListModule;
+import com.denisenko.alexey.simple.reddit.client.entity.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.presentation.TopListContract;
+import com.denisenko.alexey.simple.reddit.client.ui.TopListActivityCallback;
 
 import java.util.ArrayList;
 import java.util.List;

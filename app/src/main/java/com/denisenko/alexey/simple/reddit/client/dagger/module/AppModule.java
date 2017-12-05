@@ -1,8 +1,10 @@
-package com.denisenko.alexey.simple.reddit.client;
+package com.denisenko.alexey.simple.reddit.client.dagger.module;
 
-import com.denisenko.alexey.simple.reddit.client.top_list.InMemoryRepository;
-import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiInterface;
-import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiModule;
+import com.denisenko.alexey.simple.reddit.client.BuildConfig;
+import com.denisenko.alexey.simple.reddit.client.dagger.NamingConstants;
+import com.denisenko.alexey.simple.reddit.client.model.InMemoryRepository;
+import com.denisenko.alexey.simple.reddit.client.model.data.RedditApi;
+import com.denisenko.alexey.simple.reddit.client.model.data.ApiProvider;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -24,14 +26,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    @Named(Const.UI_THREAD)
+    @Named(NamingConstants.UI_THREAD)
     Scheduler provideSchedulerUI() {
         return AndroidSchedulers.mainThread();
     }
 
     @Provides
     @Singleton
-    @Named(Const.IO_THREAD)
+    @Named(NamingConstants.IO_THREAD)
     Scheduler provideSchedulerIO() {
         return Schedulers.io();
     }
@@ -39,8 +41,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ApiInterface provideApiInterface() {
-        return ApiModule.getApiInterface(Const.BASE_URl);
+    RedditApi provideApiInterface() {
+        return ApiProvider.getApiInterface(BuildConfig.REDDIT_ENDPOINT);
     }
 
     @Provides

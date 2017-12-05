@@ -1,4 +1,6 @@
-package com.denisenko.alexey.simple.reddit.client.top_list;
+package com.denisenko.alexey.simple.reddit.client.model;
+
+import com.denisenko.alexey.simple.reddit.client.entity.TopEntry;
 
 import java.util.ArrayList;
 import java.util.List;

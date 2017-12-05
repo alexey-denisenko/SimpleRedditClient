@@ -1,8 +1,8 @@
-package com.denisenko.alexey.simple.reddit.client.top_list.mappers;
+package com.denisenko.alexey.simple.reddit.client.presentation.top;
 
-import com.denisenko.alexey.simple.reddit.client.pojo.Child;
-import com.denisenko.alexey.simple.reddit.client.pojo.Reddit;
-import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.entity.gson.Child;
+import com.denisenko.alexey.simple.reddit.client.entity.gson.Reddit;
+import com.denisenko.alexey.simple.reddit.client.entity.TopEntry;
 
 import java.util.ArrayList;
 import java.util.List;

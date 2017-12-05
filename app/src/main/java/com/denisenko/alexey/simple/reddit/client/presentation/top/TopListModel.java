@@ -1,10 +1,10 @@
-package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
+package com.denisenko.alexey.simple.reddit.client.presentation.top;
 
-import com.denisenko.alexey.simple.reddit.client.Const;
-import com.denisenko.alexey.simple.reddit.client.top_list.InMemoryRepository;
-import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
-import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiInterface;
-import com.denisenko.alexey.simple.reddit.client.top_list.mappers.TopListMapper;
+import com.denisenko.alexey.simple.reddit.client.dagger.NamingConstants;
+import com.denisenko.alexey.simple.reddit.client.model.InMemoryRepository;
+import com.denisenko.alexey.simple.reddit.client.entity.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.model.data.RedditApi;
+import com.denisenko.alexey.simple.reddit.client.presentation.TopListContract;
 
 import java.util.List;
 
@@ -22,27 +22,27 @@ public class TopListModel implements TopListContract.Model {
 
     private InMemoryRepository inMemoryRepository;
     private TopListMapper topListMapper;
-    private ApiInterface apiInterface;
+    private RedditApi redditApi;
     private Scheduler uiThread;
     private Scheduler ioThread;
 
     @Inject
     public TopListModel(InMemoryRepository inMemoryRepository,
                         TopListMapper topListMapper,
-                        ApiInterface apiInterface,
-                        @Named(Const.UI_THREAD) Scheduler uiThread,
-                        @Named(Const.IO_THREAD) Scheduler ioThread) {
+                        RedditApi redditApi,
+                        @Named(NamingConstants.UI_THREAD) Scheduler uiThread,
+                        @Named(NamingConstants.IO_THREAD) Scheduler ioThread) {
 
         this.inMemoryRepository = inMemoryRepository;
         this.topListMapper = topListMapper;
-        this.apiInterface = apiInterface;
+        this.redditApi = redditApi;
         this.uiThread = uiThread;
         this.ioThread = ioThread;
     }
 
     @Override
     public Observable<List<TopEntry>> getPage() {
-        return apiInterface.getTopEntries(ITEMS_PER_PAGE, inMemoryRepository.getLastEntryName())
+        return redditApi.getTopEntries(ITEMS_PER_PAGE, inMemoryRepository.getLastEntryName())
                 .subscribeOn(ioThread)
                 .observeOn(uiThread)
                 .map(topListMapper);
