@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top_list;
+package com.denisenko.alexey.simple.reddit.client.entity;
 
 public class TopEntry {
 

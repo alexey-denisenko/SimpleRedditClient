@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.pojo;
+package com.denisenko.alexey.simple.reddit.client.entity.gson;
 
 import com.google.gson.annotations.SerializedName;
 

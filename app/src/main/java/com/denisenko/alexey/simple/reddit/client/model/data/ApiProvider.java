@@ -1,4 +1,4 @@
-package com.denisenko.alexey.simple.reddit.client.top_list.api;
+package com.denisenko.alexey.simple.reddit.client.model.data;
 
 import com.denisenko.alexey.simple.reddit.client.BuildConfig;
 
@@ -8,11 +8,11 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public final class ApiModule {
+public final class ApiProvider {
 
     private static final boolean ENABLE_LOG = BuildConfig.DEBUG;
 
-    public static ApiInterface getApiInterface(String url) {
+    public static RedditApi getApiInterface(String url) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient().newBuilder();
 
         if (ENABLE_LOG) {
@@ -28,6 +28,6 @@ public final class ApiModule {
 
         builder.client(okHttpClientBuilder.build());
 
-        return builder.build().create(ApiInterface.class);
+        return builder.build().create(RedditApi.class);
     }
 }

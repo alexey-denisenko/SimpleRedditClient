@@ -1,20 +1,20 @@
-package com.denisenko.alexey.simple.reddit.client.pojo;
+package com.denisenko.alexey.simple.reddit.client.entity.gson;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Reddit {
+public class Child {
 
     @SerializedName("kind")
     private String kind;
 
     @SerializedName("data")
-    private Data data;
+    private ChildData data;
 
     public String getKind() {
         return kind;
     }
 
-    public Data getData() {
+    public ChildData getData() {
         return data;
     }
 }
