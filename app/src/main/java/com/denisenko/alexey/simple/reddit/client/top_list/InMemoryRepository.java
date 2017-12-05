@@ -7,8 +7,7 @@ public class InMemoryRepository {
 
     private List<TopEntry> entries = new ArrayList<>();
 
-    public InMemoryRepository() {
-    }
+    public InMemoryRepository() {}
 
     public List<TopEntry> getEntries() {
         return entries;

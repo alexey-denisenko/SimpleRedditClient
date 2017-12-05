@@ -1,8 +1,6 @@
-package com.denisenko.alexey.simple.reddit.client;
+package com.denisenko.alexey.simple.reddit.client.common;
 
 import android.support.v4.app.Fragment;
-
-import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
 
 public abstract class BaseFragment extends Fragment {
 

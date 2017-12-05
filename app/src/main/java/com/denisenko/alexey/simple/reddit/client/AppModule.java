@@ -1,10 +1,8 @@
-package com.denisenko.alexey.simple.reddit.client.top_list.di;
+package com.denisenko.alexey.simple.reddit.client;
 
-import com.denisenko.alexey.simple.reddit.client.Const;
 import com.denisenko.alexey.simple.reddit.client.top_list.InMemoryRepository;
 import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiInterface;
 import com.denisenko.alexey.simple.reddit.client.top_list.api.ApiModule;
-import com.denisenko.alexey.simple.reddit.client.top_list.mappers.TopListMapper;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -13,20 +11,15 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 @Module
-public class ModelModule {
+public class AppModule {
 
     @Provides
-    @Singleton
-    ApiInterface provideApiInterface() {
-        return ApiModule.getApiInterface(Const.BASE_URl);
-    }
-
-    @Provides
-    TopListMapper provideMapper() {
-        return new TopListMapper();
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
     }
 
     @Provides
@@ -41,6 +34,13 @@ public class ModelModule {
     @Named(Const.IO_THREAD)
     Scheduler provideSchedulerIO() {
         return Schedulers.io();
+    }
+
+
+    @Provides
+    @Singleton
+    ApiInterface provideApiInterface() {
+        return ApiModule.getApiInterface(Const.BASE_URl);
     }
 
     @Provides

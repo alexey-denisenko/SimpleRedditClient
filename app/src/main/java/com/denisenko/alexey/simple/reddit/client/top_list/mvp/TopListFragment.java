@@ -14,14 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.denisenko.alexey.simple.reddit.client.BaseFragment;
+import com.denisenko.alexey.simple.reddit.client.DaggerAppComponent;
 import com.denisenko.alexey.simple.reddit.client.R;
 import com.denisenko.alexey.simple.reddit.client.common.BaseContract;
+import com.denisenko.alexey.simple.reddit.client.common.BaseFragment;
 import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
 import com.denisenko.alexey.simple.reddit.client.top_list.TopListActivityCallback;
-import com.denisenko.alexey.simple.reddit.client.top_list.di.DaggerViewComponent;
-import com.denisenko.alexey.simple.reddit.client.top_list.di.ViewComponent;
-import com.denisenko.alexey.simple.reddit.client.top_list.di.ViewModule;
+import com.denisenko.alexey.simple.reddit.client.top_list.di.TopListComponent;
+import com.denisenko.alexey.simple.reddit.client.top_list.di.TopListModule;
 import com.denisenko.alexey.simple.reddit.client.top_list.ui.TopListAdapter;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
 
     private TopListAdapter adapter;
 
-    private ViewComponent viewComponent;
+    private TopListComponent topListComponent;
 
     private Snackbar snackbar;
 
@@ -72,12 +72,11 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (viewComponent == null) {
-            viewComponent = DaggerViewComponent.builder()
-                    .viewModule(new ViewModule(this, callback))
-                    .build();
+        if (topListComponent == null) {
+            topListComponent = DaggerAppComponent.create()
+                    .plus(new TopListModule(this, callback));
         }
-        viewComponent.inject(this);
+        topListComponent.inject(this);
     }
 
     @Override

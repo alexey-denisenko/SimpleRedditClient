@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements TopListActivityCa
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
         builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
+
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(this, Uri.parse(entry.getUrl()));
     }

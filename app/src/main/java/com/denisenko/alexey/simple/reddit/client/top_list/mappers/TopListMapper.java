@@ -7,8 +7,11 @@ import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import io.reactivex.functions.Function;
 
+@Singleton
 public class TopListMapper implements Function<Reddit, List<TopEntry>> {
 
     @Override

@@ -1,6 +1,5 @@
 package com.denisenko.alexey.simple.reddit.client.top_list.mvp;
 
-import com.denisenko.alexey.simple.reddit.client.App;
 import com.denisenko.alexey.simple.reddit.client.common.BasePresenter;
 import com.denisenko.alexey.simple.reddit.client.top_list.TopEntry;
 import com.denisenko.alexey.simple.reddit.client.top_list.TopListActivityCallback;
@@ -11,22 +10,25 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
 public class TopListPresenter extends BasePresenter implements TopListContract.Presenter {
 
-    @Inject
-    TopListModel model;
+    private TopListModel model;
 
     private final TopListContract.View view;
 
     private final TopListActivityCallback callback;
 
-    public TopListPresenter(TopListContract.View view, TopListActivityCallback callback) {
-        super();
-        App.getComponent().inject(this);
-
+    @Inject
+    public TopListPresenter(TopListContract.View view,
+                            TopListModel model,
+                            TopListActivityCallback callback,
+                            CompositeDisposable compositeDisposable) {
+        super(compositeDisposable);
+        this.model = model;
         this.callback = callback;
         this.view = view;
     }
