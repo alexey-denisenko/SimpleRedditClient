@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 public interface RedditApi {
 
     @GET("/top.json")
-    Observable<Reddit> getTopEntries(@Query("limit") int limit, @Query("after") String after);
+    Observable<Reddit> getRedditTop(@Query("limit") int limit, @Query("after") String after);
 }
