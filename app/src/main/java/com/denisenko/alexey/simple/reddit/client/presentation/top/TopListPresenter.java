@@ -6,18 +6,16 @@ import com.denisenko.alexey.simple.reddit.client.presentation.TopListContract;
 import com.denisenko.alexey.simple.reddit.client.ui.TopListActivityCallback;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
 public class TopListPresenter extends BasePresenter implements TopListContract.Presenter {
 
-    private TopListModel model;
+    private TopListInteractor interactor;
 
     private final TopListContract.View view;
 
@@ -25,35 +23,24 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
 
     @Inject
     public TopListPresenter(TopListContract.View view,
-                            TopListModel model,
+                            TopListInteractor interactor,
                             TopListActivityCallback callback,
                             CompositeDisposable compositeDisposable) {
         super(compositeDisposable);
-        this.model = model;
+        this.interactor = interactor;
         this.callback = callback;
         this.view = view;
     }
 
-    @Override
-    public void loadFirstPage() {
 
+    @Override
+    public void firstPage() {
         view.setRefreshing(true);
 
-        Observable<List<TopEntry>> observable;
-        if (!model.isItemsReceived()) {
-            observable = model.getPage();
-        } else {
-            observable = model.getCachedData();
-        }
-
-        Disposable disposable = observable.subscribe(
+        Disposable disposable = interactor.getPage(true, false).subscribe(
                 topEntries -> {
                     view.setRefreshing(false);
                     view.showFirstPage(topEntries);
-
-                    if (!model.isItemsReceived()) {
-                        model.addItemsToCache(topEntries);
-                    }
                 },
                 throwable -> {
                     view.setRefreshing(false);
@@ -71,15 +58,13 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
     }
 
     @Override
-    public void loadNextPage() {
-
+    public void nextPage() {
         view.setRefreshing(true);
 
-        model.getPage().subscribe(
+        Disposable disposable = interactor.getPage(false, false).subscribe(
                 topEntries -> {
                     view.setRefreshing(false);
                     view.showNextPage(topEntries);
-                    model.addItemsToCache(topEntries);
                 },
                 throwable -> {
                     view.setRefreshing(false);
@@ -92,17 +77,36 @@ public class TopListPresenter extends BasePresenter implements TopListContract.P
                     }
                 }
         );
-    }
+
+        addSubscription(disposable);    }
 
     @Override
     public void refreshList() {
-        model.clearRepository();
-        loadFirstPage();
+        view.setRefreshing(true);
+
+        Disposable disposable = interactor.getPage(true, true).subscribe(
+                topEntries -> {
+                    view.setRefreshing(false);
+                    view.showFirstPage(topEntries);
+                },
+                throwable -> {
+                    view.setRefreshing(false);
+                    throwable.printStackTrace();
+
+                    if (throwable instanceof IOException) {
+                        view.showLoadFirstPageNetworkError();
+                    } else {
+                        view.showLoadFirstPageUnknownError();
+                    }
+                }
+        );
+
+        addSubscription(disposable);
     }
 
     @Override
     public boolean isLastPage() {
-        return model.isLastPage();
+        return interactor.isLastPage();
     }
 
     @Override

@@ -28,9 +28,9 @@ public interface TopListContract {
 
     interface Presenter extends BaseContract.Presenter {
 
-        void loadFirstPage();
+        void firstPage();
 
-        void loadNextPage();
+        void nextPage();
 
         void refreshList();
 
@@ -41,16 +41,8 @@ public interface TopListContract {
 
     interface Model extends BaseContract.Model {
 
-        Observable<List<TopEntry>> getPage();
-
-        boolean isItemsReceived();
-
-        Observable<List<TopEntry>> getCachedData();
-
-        void addItemsToCache(List<TopEntry> topEntries);
+        Observable<List<TopEntry>> getPage(boolean first, boolean forceRefresh);
 
         boolean isLastPage();
-
-        void clearRepository();
     }
 }

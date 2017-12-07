@@ -87,7 +87,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
         ButterKnife.bind(this, rootView);
         initRecyclerView();
         initializeSwipeRefresh();
-        presenter.loadFirstPage();
+        presenter.firstPage();
         return rootView;
     }
 
@@ -110,7 +110,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
                 if (!isLoading && presenter.isLastPage()) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                             && firstVisibleItemPosition >= 0) {
-                        presenter.loadNextPage();
+                        presenter.nextPage();
                     }
                 }
             }
@@ -142,7 +142,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
         showSnackbar(getString(R.string.error_no_internet),
                 getString(R.string.retry),
                 Snackbar.LENGTH_LONG,
-                v -> presenter.loadFirstPage());
+                v -> presenter.firstPage());
     }
 
     @Override
@@ -150,7 +150,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
         showSnackbar(getString(R.string.error_unknown),
                 getString(R.string.retry),
                 Snackbar.LENGTH_LONG,
-                v -> presenter.loadFirstPage());
+                v -> presenter.firstPage());
     }
 
     @Override
@@ -158,7 +158,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
         showSnackbar(getString(R.string.error_no_internet),
                 getString(R.string.retry),
                 Snackbar.LENGTH_LONG,
-                v -> presenter.loadNextPage());
+                v -> presenter.nextPage());
     }
 
     @Override
@@ -166,7 +166,7 @@ public class TopListFragment extends BaseFragment implements TopListContract.Vie
         showSnackbar(getString(R.string.error_unknown),
                 getString(R.string.retry),
                 Snackbar.LENGTH_LONG,
-                v -> presenter.loadNextPage());
+                v -> presenter.nextPage());
     }
 
     private void dismissSnackbar() {

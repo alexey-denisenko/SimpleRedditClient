@@ -1,8 +1,7 @@
 package com.denisenko.alexey.simple.reddit.client.presentation.top;
 
-import com.denisenko.alexey.simple.reddit.client.entity.gson.Child;
-import com.denisenko.alexey.simple.reddit.client.entity.gson.Reddit;
 import com.denisenko.alexey.simple.reddit.client.entity.TopEntry;
+import com.denisenko.alexey.simple.reddit.client.entity.gson.Child;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +11,14 @@ import javax.inject.Singleton;
 import io.reactivex.functions.Function;
 
 @Singleton
-public class TopListMapper implements Function<Reddit, List<TopEntry>> {
+public class TopListMapper implements Function<List<Child>, List<TopEntry>> {
 
     @Override
-    public List<TopEntry> apply(Reddit reddit) throws Exception {
-        if (reddit == null) {
+    public List<TopEntry> apply(List<Child> childrens) throws Exception {
+        if (childrens == null) {
             return null;
         }
 
-        List<Child> childrens = reddit.getData().getChildrens();
         List<TopEntry> result = new ArrayList<>(childrens.size());
 
         for (Child child : childrens) {

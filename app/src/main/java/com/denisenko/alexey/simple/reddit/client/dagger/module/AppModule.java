@@ -1,6 +1,7 @@
 package com.denisenko.alexey.simple.reddit.client.dagger.module;
 
-import com.denisenko.alexey.simple.reddit.client.model.InMemoryRepository;
+import com.denisenko.alexey.simple.reddit.client.model.RedditTopRepository;
+import com.denisenko.alexey.simple.reddit.client.model.data.RedditApi;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -40,7 +41,9 @@ public class AppModule {
 
     @Provides
     @Singleton
-    InMemoryRepository provideInMemoryRepository() {
-        return new InMemoryRepository();
+    RedditTopRepository provideInMemoryRepository(RedditApi redditApi,
+                                                  @Named(UI_THREAD) Scheduler uiThread,
+                                                  @Named(IO_THREAD) Scheduler ioThread) {
+        return new RedditTopRepository(redditApi, uiThread, ioThread);
     }
 }

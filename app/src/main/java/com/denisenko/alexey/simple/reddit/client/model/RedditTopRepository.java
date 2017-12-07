@@ -45,6 +45,10 @@ public class RedditTopRepository {
         }
     }
 
+    public boolean maxDataLimitReached() {
+        return redditChildrens.size() < MAXIMUM_ITEMS_COUNT;
+    }
+
     private String getLastChildName() {
 
         if (redditChildrens.size() > 0) {
